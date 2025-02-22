@@ -22,8 +22,6 @@ public class LiDarWorkerTracker {
     private STATUS status;
     private List<TrackedObject> lastTrackedObjects;
     private final Map<Integer, List<TrackedObject>> _currentTrackedObjects;
-    private int currentTime;
-
     public LiDarWorkerTracker(int id, int frequency, String lidars_data_path) {
         this.id = id;
         this.frequency = frequency;
@@ -31,7 +29,6 @@ public class LiDarWorkerTracker {
         this.lastTrackedObjects = new LinkedList<>();
         this.DataBase = LiDarDataBase.getInstance(lidars_data_path);
         _currentTrackedObjects = new ConcurrentHashMap<Integer, List<TrackedObject>>();
-        currentTime = 0;
     }
 
     public TrackedObjectsEvent getTrackedObjectsEvent(DetectObjectsEvent e){
@@ -77,8 +74,6 @@ public class LiDarWorkerTracker {
             _currentTrackedObjects.put(time, newTrackedObjects);
             lastTrackedObjects = newTrackedObjects;
         }
-
-        this.currentTime = time;
     }
 
     public int getId() {
